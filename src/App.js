@@ -1,41 +1,37 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import itemsStore from './Mobx/ItemsStore';
-import {LoginPage, ListPage} from './routes';
-import {history,PrivateRoute} from './helpers';
-import { Switch, Route, Router } from 'react-router';
-import {Navbar, Copyright} from './common';
+import { ListPage, LoginPage, HelpPage } from './routes';
+import { history, PrivateRoute } from './helpers';
+import { Route, Router, Switch } from 'react-router';
+import { applyMiddleware, createStore } from 'redux';
+import rootReducer from './store/reducers/rootReducer'
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
 
-function App() {
+function App () {
+  const store = createStore(rootReducer, applyMiddleware(thunk));
   return (
-    <div className="App">
-      <Router history={history}>
-      <Switch>
-        <Main/>
-      </Switch>
-      </Router>
-      {/*  <img src={logo} className="App-logo" alt="logo" />*/}
-    </div>
+    <Provider store={ store }>
+      <div className="App">
+        <Router history={ history }>
+          <div>
+            <Main/>
+          </div>
+        </Router>
+        {/*  <img src={logo} className="App-logo" alt="logo" />*/ }
+      </div>
+    </Provider>
   );
 }
 
 const Main = () => (
-    <main>
-      <Switch>
-        <Route exact path="/signIn" component={LoginPage} />
-        <PrivateRoute path="/" component={wrappedRoutes} />
-      </Switch>
-    </main>
+  <main>
+    <Switch>
+      <Route path="/signIn" exact component={ LoginPage }/>
+      <PrivateRoute path="/list" exact component={ ListPage }/>
+      <PrivateRoute path="/help" exact component={ HelpPage }/>
+    </Switch>
+  </main>
 );
-
-const wrappedRoutes = () => (
-  <Switch>
-    <Navbar/>
-    <PrivateRoute path="/list" children={<ListPage store={itemsStore}/>} />
-  <Copyright/>
-  </Switch>
-)
-
 
 export default App;

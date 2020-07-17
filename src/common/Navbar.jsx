@@ -9,6 +9,8 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import Zoom from '@material-ui/core/Zoom';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
+import Typography from '@material-ui/core/Typography';
+import {history} from '../helpers';
 
 interface Props {
   window?: () => Window;
@@ -122,6 +124,11 @@ export default function Navbar (props: Props) {
             />
           </div>
           <div className={ classes.grow }/>
+          <div className={ classes.sectionDesktop }>
+            <Typography variant="h8" className={classes.title} onClick={() => history.push("/help")}>
+              Quick Start
+            </Typography>
+          </div>
         </Toolbar>
       </AppBar>
       <Toolbar id="back-to-top-anchor"/>

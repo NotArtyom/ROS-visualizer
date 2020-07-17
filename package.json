@@ -20,10 +20,13 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-hot-loader": "^4.12.21",
+    "react-redux": "^7.2.0",
     "react-ros": "^0.0.7",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
     "roslib": "^1.1.0",
     "shortid": "^2.2.15"
   },
@@ -49,7 +52,8 @@
     ]
   },
   "devDependencies": {
-    "babel-preset-mobx": "^2.0.0"
+    "babel-preset-mobx": "^2.0.0",
+    "prop-types": "^15.7.2"
   },
   "babel": {
     "plugins": [
