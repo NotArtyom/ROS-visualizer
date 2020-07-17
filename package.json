@@ -28,7 +28,8 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "roslib": "^1.1.0",
-    "shortid": "^2.2.15"
+    "shortid": "^2.2.15",
+    "surge": "^0.21.6"
   },
   "scripts": {
     "start": "react-scripts start",

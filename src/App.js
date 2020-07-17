@@ -28,7 +28,7 @@ const Main = () => (
   <main>
     <Switch>
       <Route path="/signIn" exact component={ LoginPage }/>
-      <PrivateRoute path="/list" exact component={ ListPage }/>
+      <PrivateRoute path="/" exact component={ ListPage }/>
       <PrivateRoute path="/help" exact component={ HelpPage }/>
     </Switch>
   </main>

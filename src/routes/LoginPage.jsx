@@ -43,7 +43,7 @@ class LoginPage extends React.Component {
     console.log(this.props);
     if (email==='LIRS' && password==='LIRS') {
       localStorage.setItem('LIRS token','LIRS User')
-      history.push('/list')
+      history.push('/')
     }
     else{
       this.setState({isError: true})
@@ -77,7 +77,7 @@ class LoginPage extends React.Component {
                 {/*<img height={400} width={300} src={LIRSlogo}/>*/}
               </Box>
               <Box  onClick={() => history.push("/")} display='flex' alignItems='center' flexDirection='row' style={{cursor: 'pointer'}}>
-                <Typography variant="h4" className={ classes.title }>LIRS</Typography>
+                <Typography variant="h4" className={ classes.title }>ROS Visualizer</Typography>
               </Box>
             </Box>
             <form className={ classes.form } noValidate>
