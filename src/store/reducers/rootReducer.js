@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
-import {listItemReducer} from './ListItemReducer'
+import {listItemReducer, msgReducer, stopReducer} from './ListItemReducer'
 
 const rootReducer = combineReducers({
-  items: listItemReducer
+  items: listItemReducer,
+  msgs: msgReducer,
+  stop: stopReducer,
 });
 
 export default rootReducer

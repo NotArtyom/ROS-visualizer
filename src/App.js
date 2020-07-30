@@ -31,6 +31,10 @@ const Main = () => (
       <PrivateRoute path="/" exact component={ ListPage }/>
       <PrivateRoute path="/turtle" exact component={ TurtleBotPage }/>
       <PrivateRoute path="/help" exact component={ HelpPage }/>
+      {/*<Route path='/images' component={() => {*/}
+      {/*window.location.port= '0.0.0.0:8080';*/}
+      {/*return null;*/}
+    }}/>
     </Switch>
   </main>
 );

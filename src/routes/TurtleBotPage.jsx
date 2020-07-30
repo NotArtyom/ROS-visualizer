@@ -4,19 +4,20 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import { TurtleData } from '../components';
-import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import { Link } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import { connect } from 'react-redux';
+import {stop} from '../store/actions/ListItemActions'
 
 const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
   },
-  heroButtons: {
-    marginTop: theme.spacing(4),
-  },
   cardGrid: {
-    paddingTop: theme.spacing(8),
-    paddingBottom: theme.spacing(8),
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
   },
   cardContent: {
     flexGrow: 1,
@@ -44,7 +45,10 @@ function TurtleBotPage () {
                 alignItems="center" spacing={ 5 }>
             <Grid item xs={ 12 }>
               <Card>
-                <Button variant={ 'outlined' } color={ 'secondary' }>View Images</Button>
+                <CardContent>
+                  <Link component='button' variant={ 'outlined' } color={ 'secondary' } href={ '0.0.0.0:8080' }>Images
+                    (0.0.0.0:8080)</Link>
+                </CardContent>
               </Card>
             </Grid>
             <Grid item xs={ 12 } sm={ 6 }>
@@ -53,6 +57,13 @@ function TurtleBotPage () {
             <Grid item xs={ 12 } sm={ 6 }>
               <TurtleData inf/>
             </Grid>
+            <Grid item xs={ 12 }>
+              <Card>
+                <CardContent>
+                  <Button  variant={ 'contained' } color={ 'secondary' }>STOP CONNECTION</Button>
+                </CardContent>
+              </Card>
+            </Grid>
           </Grid>
         </Container>
       </main>
@@ -60,4 +71,14 @@ function TurtleBotPage () {
   );
 }
 
-export default TurtleBotPage;
+const mapStateToProps = state => {
+  return {msgs: state.msgs};
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    stop: () => dispatch(stop())
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps())(TurtleBotPage);

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useROS } from './ROS';
 import Button from '@material-ui/core/Button';
+import { storeLastMsg } from '../store/actions/ListItemActions';
+import { connect } from 'react-redux';
 
 var listener = null;
 
@@ -14,11 +16,11 @@ function EchoTopic (props) {
 
   useEffect(() => {
     handleTopic(topic);
-  });
+  },);
 
   const unsubscribe = () => {
     if (listener) {
-      console.log('Unsubscribing');
+      // console.log('Unsubscribing');
       listener.unsubscribe();
     }
   };
@@ -44,7 +46,7 @@ function EchoTopic (props) {
     }
 
     if (listener) {
-      console.log('Subscribing to messages...');
+      // console.log('Subscribing to messages...');
       listener.subscribe(handleMsg);
     } else {
       console.log('Topic \'' + topic + '\' not found...make sure to input the full topic path - including the leading \'/\'');
@@ -60,8 +62,12 @@ function EchoTopic (props) {
   };
 
   const handleMsg = (msg) => {
+    // if (props.stop.state === false) {
+    //   setTopic('');
+    // }
     setLastMsg(msg);
-    console.log(msg);
+    props.addMsg(msg);
+    // console.log(msg);
   };
 
   return (
@@ -76,7 +82,7 @@ function EchoTopic (props) {
         </>
       }
       <b>Topic to echo: </b>{ props.turtle ?
-      <Button variant={ 'text' } disabled={!isConnected} color={ 'secondary' }
+      <Button variant={ 'text' } disabled={ !isConnected } color={ 'secondary' }
               onClick={ () => handleTopic('/odom') }>
         /odom
       </Button>
@@ -88,4 +94,14 @@ function EchoTopic (props) {
   );
 }
 
-export default EchoTopic;
+const mapStateToProps = state => {
+  return {stop: state.stop};
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addMsg: (msg) => dispatch(storeLastMsg(msg))
+  };
+};
+
+export default connect(mapDispatchToProps, mapDispatchToProps)(EchoTopic);
