@@ -39,7 +39,6 @@ const useStyles = makeStyles((theme) => ({
 
 function ListPage (props) {
   const classes = useStyles();
-  console.log(props.items);
   return (
     <>
       <Navbar/>
@@ -64,7 +63,7 @@ function ListPage (props) {
                 justify="flex-start"
                 alignItems="center" spacing={ 5 }>
             { props.items.map((item) => (
-              <Grid item key={props.items.indexOf(item)} xs={ 15 } sm={ 14 } md={ 7 }>
+              <Grid item key={props.items.indexOf(item)} xs={ 12 } sm={ 12 } md={ 7 }>
                 <ListItem/>
               </Grid>)
             ) }

@@ -1,7 +1,7 @@
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import { makeStyles, Theme, createStyles, fade } from '@material-ui/core/styles';
+import { createStyles, fade, makeStyles, Theme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import Fab from '@material-ui/core/Fab';
@@ -9,8 +9,10 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import Zoom from '@material-ui/core/Zoom';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
+import { history } from '../helpers';
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/styles';
 import Typography from '@material-ui/core/Typography';
-import {history} from '../helpers';
 
 interface Props {
   window?: () => Window;
@@ -25,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
       right: theme.spacing(2),
     },
     title: {
-      cursor: 'pointer'
+      cursor: 'pointer',
     },
     search: {
       position: 'relative',
@@ -75,6 +77,37 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+const OutlinedButton = withStyles({
+  root: {
+    background: 'transparent',
+    borderRadius: 3,
+    border: '1px solid',
+    borderColor: 'white',
+    color: 'white',
+    marginRight: 10,
+    height: 40,
+    padding: '0 30px',
+  },
+  label: {
+    textTransform: 'capitalize',
+
+  },
+})(Button);
+
+const SimpleButton = withStyles({
+  root: {
+    background: 'transparent',
+    color: 'white',
+    marginRight: 10,
+    height: 40,
+    padding: '0 30px',
+  },
+  label: {
+    textTransform: 'capitalize',
+
+  },
+})(Button);
+
 function ScrollTop (props: Props) {
   const {children, window} = props;
   const classes = useStyles();
@@ -108,8 +141,13 @@ export default function Navbar (props: Props) {
   return (
     <React.Fragment>
       <CssBaseline/>
-      <AppBar color={ 'primary' }>
-        <Toolbar>
+      <AppBar color={ props.dark ? 'secondary' : 'primary' }>
+        <Toolbar className={ classes.title } >
+          <div onClick={ () => history.push('/') }>
+            { props.dark ?
+              <Typography variant={ 'h4' }>Turtle Bot</Typography> :
+              <Typography variant={ 'h4' }>ROS Visualizer</Typography> }
+          </div>
           <div className={ classes.search }>
             <div className={ classes.searchIcon }>
               <SearchIcon/>
@@ -124,10 +162,13 @@ export default function Navbar (props: Props) {
             />
           </div>
           <div className={ classes.grow }/>
-          <div className={ classes.sectionDesktop }>
-            <Typography variant="h8" className={classes.title} onClick={() => history.push("/help")}>
+          <div>
+            <OutlinedButton variant='outlined' className={ classes.title } onClick={ () => history.push('/turtle') }>
+              TurtleBot
+            </OutlinedButton>
+            <SimpleButton variant='text' className={ classes.title } onClick={ () => history.push('/help') }>
               Quick Start
-            </Typography>
+            </SimpleButton>
           </div>
         </Toolbar>
       </AppBar>

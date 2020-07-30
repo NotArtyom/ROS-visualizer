@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useROS } from './ROS';
+import Button from '@material-ui/core/Button';
 
 var listener = null;
 
-function EchoTopic () {
+function EchoTopic (props) {
   const {createListener, topics, isConnected, listeners} = useROS();
   const [lastMsg, setLastMsg] = useState(null);
   // const [messages, setMessages] = useState([]);
@@ -59,17 +60,30 @@ function EchoTopic () {
   };
 
   const handleMsg = (msg) => {
-    setLastMsg(msg)
+    setLastMsg(msg);
     console.log(msg);
   };
+
   return (
     <div>
-      <b>Message Queue Length: </b><input name="queueInput" defaultValue={ queue }
-                                          onChange={ event => handleQueue(event.target.value) }/> <br/>
-      <b>Compression: </b><input name="compInput" defaultValue={ compression }
-                                 onChange={ event => handleCompression(event.target.value) }/> <br/>
-      <b>Topic to echo: </b><input name="topicInput" defaultValue={ topic }
-                                   onChange={ event => handleTopic(event.target.value) }/> <br/>
+      {
+        !props.turtle &&
+        <>
+          <b>Message Queue Length: </b><input name="queueInput" defaultValue={ queue }
+                                              onChange={ event => handleQueue(event.target.value) }/> <br/>
+          <b>Compression: </b><input name="compInput" defaultValue={ compression }
+                                     onChange={ event => handleCompression(event.target.value) }/> <br/>
+        </>
+      }
+      <b>Topic to echo: </b>{ props.turtle ?
+      <Button variant={ 'text' } disabled={!isConnected} color={ 'secondary' }
+              onClick={ () => handleTopic('/odom') }>
+        /odom
+      </Button>
+      :
+      <input
+        name="topicInput" defaultValue={ topic }
+        onChange={ event => handleTopic(event.target.value) }/> } <br/>
     </div>
   );
 }

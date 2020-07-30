@@ -11,7 +11,6 @@ const useStyles = makeStyles((theme: Theme) =>
     paper: {
       backgroundColor: '#FFFFFF',
       marginTop: theme.spacing(8),
-      minWidth: 600,
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
@@ -27,20 +26,24 @@ const HelpPage = () => {
     <>
       <Navbar/>
       <div className="col-md-6 col-md-offset-3">
-        <Container component="main" maxWidth="xm">
+        <Container component="main" maxWidth="sm">
           <CssBaseline/>
           <div>
             <Box display='flex' justifyContent='center' className={ classes.paper }>
-              <Box display='flex' alignItems='center' flexDirection='row' mb={4} style={ {cursor: 'pointer'} }>
+              <Box display='flex' alignItems='center' flexDirection='row' mb={ 4 } style={ {cursor: 'pointer'} }>
                 <Typography variant="h1" className={ classes.title }>Quick Start</Typography>
               </Box>
-              <Typography variant="h5" justifyContent='flex-start'> Install ROS Bridge</Typography>
-              <Typography variant="h6" color='primary'> {'sudo apt-get install ros-<rosdistro>-rosbridge-server'} </Typography>
-            <Box mt={4}>
-              <Typography variant="h5" justifyContent='flex-start'> Run ROS Bridge</Typography>
-              <Typography variant="h6" color='primary'> {'source /opt/ros/<rosdistro>/setup.bash'} </Typography>
-              <Typography variant="h6" color='primary'> {'roslaunch rosbridge_server rosbridge_websocket.launch'} </Typography>
-            </Box>
+              <Typography variant="h5" justifyContent='flex-start'> Install ROS Bridge and Web Video Server</Typography>
+              <Typography variant="h6"
+                          color='primary'> { 'sudo apt-get install ros-<rosdistro>-rosbridge-server' } </Typography>
+              <Typography variant="h6" color='primary'> { 'sudo apt-get install ros-<rosdistro>-web-video-server' } </Typography>
+              <Box mt={ 4 }>
+                <Typography variant="h5" justifyContent='flex-start'> Run ROS Bridge and Web Video Server</Typography>
+                <Typography variant="h6" color='primary'> { 'source /opt/ros/<rosdistro>/setup.bash' } </Typography>
+                <Typography variant="h6"
+                            color='primary'> { 'roslaunch rosbridge_server rosbridge_websocket.launch' } </Typography>
+                <Typography variant="h6" color='primary'> { 'rosrun web_video_server web_video_server' } </Typography>
+              </Box>
             </Box>
           </div>
         </Container>

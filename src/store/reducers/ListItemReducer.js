@@ -7,7 +7,7 @@ const initState = []
 export const listItemReducer = (state = initState, action) =>{
   switch (action.type) {
     case consts.addItem:{
-      return [...state, <React.Fragment><ListItem/></React.Fragment>]
+      return [...state, <React.Fragment><ListItem dark={false}/></React.Fragment>]
     }
     default:
       return state

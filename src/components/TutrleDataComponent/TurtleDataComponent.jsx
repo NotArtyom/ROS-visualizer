@@ -1,17 +1,12 @@
 import React from 'react';
 import { EchoTopic, ToggleConnect } from '../../ROS';
-import { ROS, useROS } from '../../ROS/ROS';
+import { ROS } from '../../ROS/ROS';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
-    card: {
-      height: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      maxWidth: '50vw'
-    },
     cardDark: {
       height: '100%',
       display: 'flex',
@@ -25,21 +20,27 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }),
 );
 
-const ListItem = (props) => {
+const TurtleData = (props) => {
   const classes = useStyles();
-  const {url} = useROS();
+  console.log(props.inf);
   return (
     <>
-      <Card className={ props.dark ? classes.cardDark : classes.card }>
+      <Card className={ classes.cardDark }>
         <CardContent>
-          <ROS>
-            {props.dark ? <ToggleConnect dark/>:<ToggleConnect/>}
-            {!props.dark && <EchoTopic/>}
-          </ROS>
+          { !props.inf ? <ROS>
+              <ToggleConnect dark/>
+              <EchoTopic turtle={ true }/>
+            </ROS>
+            :
+            <>
+              <Typography variant={ 'h5' }>Turtle Data</Typography>
+              <Typography variant={ 'h6' }>Data</Typography>
+            </>
+          }
         </CardContent>
       </Card>
     </>
   );
 };
 
-export default ListItem;
+export default TurtleData;
